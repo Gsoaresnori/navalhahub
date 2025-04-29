@@ -6,8 +6,13 @@ import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { Badge } from "./_components/ui/badge"
+import { db } from "./_lib/prisma"
+import BarbershopItem from "./_components/barbershop-item"
 
-const Home = () => {
+const Home = async () => {
+  const barbershops = await db.barbershop.findMany({})
+  console.log({ barbershops })
+
   return (
     <div>
       {/* header */}
@@ -24,7 +29,7 @@ const Home = () => {
             <SearchIcon />
           </Button>
         </div>
-        <div className="relative mt-6 h-[150px] w-full rounded-xl">
+        <div className="relative mt-2 h-[165px] w-full rounded-xl">
           {/* Banner */}
           <Image
             src="/banner-01.png"
@@ -34,7 +39,10 @@ const Home = () => {
           />
         </div>
         {/* Agendamento */}
-        <Card className="mt-6">
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Agendamentos
+        </h2>
+        <Card>
           <CardContent className="flex justify-between p-0">
             {/* Esquerda */}
             <div className="flex flex-col gap-2 py-5 pl-5">
@@ -42,7 +50,7 @@ const Home = () => {
               <h3 className="font-semibold">Corte de Cabelo</h3>
               <div className="flex items-center">
                 <Avatar className="h6 w-6">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src="https://utfs.io/f/e995db6d-df96-4658-99f5-11132fd931e1-17j.png" />
                 </Avatar>
                 <p className="text-sm">Corte de Cabelo</p>
               </div>
@@ -56,6 +64,14 @@ const Home = () => {
             </div>
           </CardContent>
         </Card>
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Recomendados
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
     </div>
   )
