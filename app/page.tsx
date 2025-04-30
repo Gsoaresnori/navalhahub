@@ -78,7 +78,7 @@ const Home = async () => {
           </Button>
         </div>
 
-        <div className="relative mt-2 h-[165px] w-full rounded-xl">
+        <div className="relative mt-2 h-[140px] w-full rounded-xl">
           {/* Banner */}
           <Image
             src="/banner-01.png"
