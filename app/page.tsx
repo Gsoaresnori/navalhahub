@@ -16,7 +16,6 @@ const Home = async () => {
       name: "desc",
     },
   })
-
   return (
     <div>
       {/* header */}
