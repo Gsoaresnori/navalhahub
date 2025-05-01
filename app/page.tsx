@@ -98,7 +98,7 @@ const Home = async () => {
               <Badge className="w-fit">Confirmado</Badge>
               <h3 className="font-semibold">Corte de Cabelo</h3>
               <div className="flex items-center">
-                <Avatar className="h6 w-6">
+                <Avatar className="h-6 w-6">
                   <AvatarImage src="https://utfs.io/f/e995db6d-df96-4658-99f5-11132fd931e1-17j.png" />
                 </Avatar>
                 <p className="text-sm">Corte de Cabelo</p>
