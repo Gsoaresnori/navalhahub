@@ -21,7 +21,7 @@ const SidebarSheet = () => {
       </SheetHeader>
       <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
         {data?.user ? (
-          <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
+          <div className="flex items-center justify-between gap-3">
             <Avatar>
               <AvatarImage src={data?.user.image ?? ""} />
             </Avatar>
@@ -46,7 +46,7 @@ const SidebarSheet = () => {
           </>
         )}
       </div>
-      <div className="flex flex-col gap-1 border-b border-solid py-5">
+      <div className="flex flex-col gap-1 border-b border-solid py-4">
         <SheetClose asChild>
           <Button className="justify-start gap-2" variant="ghost" asChild>
             <Link href="/">
@@ -63,7 +63,7 @@ const SidebarSheet = () => {
         </SheetClose>
       </div>
 
-      <div className="flex flex-col gap-2 border-b border-solid py-5">
+      <div className="flex flex-col gap-1 border-b border-solid py-4">
         {quickSearchOptions.map((option) => (
           <SheetClose key={option.title} asChild>
             <Button className="justify-start gap-2" variant="ghost" asChild>
@@ -80,16 +80,18 @@ const SidebarSheet = () => {
           </SheetClose>
         ))}
       </div>
-      <div className="flex flex-col gap-2 py-5">
-        <Button
-          variant="ghost"
-          className="justify-start gap-2"
-          onClick={handleLogoutClick}
-        >
-          <LogOutIcon size={18} />
-          Sair da conta
-        </Button>
-      </div>
+      {data?.user && (
+        <div className="flex flex-col gap-2 py-4">
+          <Button
+            variant="ghost"
+            className="justify-start gap-2"
+            onClick={handleLogoutClick}
+          >
+            <LogOutIcon size={18} />
+            Sair da conta
+          </Button>
+        </div>
+      )}
     </SheetContent>
   )
 }

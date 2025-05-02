@@ -175,9 +175,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                 >
                   Reservar
                 </Button>
-                <SheetContent className="px-0">
+                <SheetContent className="overflow-y-auto px-0">
                   <SheetHeader>
-                    <SheetTitle>Fazer Reserva</SheetTitle>
+                    <SheetTitle className="border-b border-solid px-5 py-3 text-left">
+                      Fazer Reserva
+                    </SheetTitle>
                   </SheetHeader>
                   <div className="border-b border-solid py-4">
                     <Calendar
