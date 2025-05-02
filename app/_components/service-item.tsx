@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { Barbershop, BarbershopService, Booking } from "@prisma/client"
@@ -125,13 +124,12 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       })
       await createBooking({
         serviceId: service.id,
-        userId: (data?.user as any).id,
         date: newDate,
       })
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!")
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error("Erro ao criar reserva!")
     }
   }
