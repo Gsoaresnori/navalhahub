@@ -1,12 +1,14 @@
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"
-import { Card, CardContent } from "./_components/ui/card"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
-import { Badge } from "./_components/ui/badge"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
+import { quickSearchOptions } from "./_constants/search"
 import Search from "./_components/search"
+import Link from "next/link"
+import { Card, CardContent } from "./_components/ui/card"
+import { Badge } from "./_components/ui/badge"
+import { Avatar, AvatarImage } from "./_components/ui/avatar"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -28,48 +30,26 @@ const Home = async () => {
         <div className="mt-6">
           <Search />
         </div>
-        {/* Busca Rapida */}
-
-        <div className="mt-6 flex items-center gap-3 overflow-auto [&::-webkit-scrollbar]:hidden">
-          <Button variant="secondary" className="gap-2">
-            <Image src="/cabelo.svg" alt="Cabelo" width={16} height={16} />
-            Cabelo
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image src="/barba.svg" alt="Barba" width={16} height={16} />
-            Barba
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image
-              src="/acabamento.svg"
-              alt="Acabamento"
-              width={16}
-              height={16}
-            />
-            Acabamento
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image
-              src="/sobrancelha.svg"
-              alt="Sobrancelha"
-              width={16}
-              height={16}
-            />
-            Sobrancelha
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image src="/massagem.svg" alt="Massagem" width={16} height={16} />
-            Massagem
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image
-              src="/hidratacao.svg"
-              alt="Hidratação"
-              width={16}
-              height={16}
-            />
-            Hidratação
-          </Button>
+        {/* BUSCA RÁPIDA */}
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          {quickSearchOptions.map((option) => (
+            <Button
+              className="gap-2"
+              variant="secondary"
+              key={option.title}
+              asChild
+            >
+              <Link href={`/barbershops?service=${option.title}`}>
+                <Image
+                  src={option.imageUrl}
+                  width={16}
+                  height={16}
+                  alt={option.title}
+                />
+                {option.title}
+              </Link>
+            </Button>
+          ))}
         </div>
 
         <div className="relative mt-2 h-[140px] w-full rounded-xl">
