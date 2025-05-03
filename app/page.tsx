@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"
@@ -6,17 +7,40 @@ import BarbershopItem from "./_components/barbershop-item"
 import { quickSearchOptions } from "./_constants/search"
 import Search from "./_components/search"
 import Link from "next/link"
-import { Card, CardContent } from "./_components/ui/card"
-import { Badge } from "./_components/ui/badge"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
+import BookingItem from "./_components/booking-item"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./_lib/auth"
 
 const Home = async () => {
+  const session = await getServerSession(authOptions)
   const barbershops = await db.barbershop.findMany({})
   const popularBarbershops = await db.barbershop.findMany({
     orderBy: {
       name: "desc",
     },
   })
+
+  const confirmedBookings = session?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (session?.user as any).id,
+          date: {
+            gte: new Date(),
+          },
+        },
+
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+        orderBy: {
+          date: "asc",
+        },
+      })
+    : []
   return (
     <div>
       {/* header */}
@@ -61,32 +85,15 @@ const Home = async () => {
             alt="Agende nos melhores com NavalhaHub"
           />
         </div>
-        {/* Agendamento */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Agendamentos
         </h2>
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            {/* Esquerda */}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-              <div className="flex items-center">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/e995db6d-df96-4658-99f5-11132fd931e1-17j.png" />
-                </Avatar>
-                <p className="text-sm">Corte de Cabelo</p>
-              </div>
-            </div>
-
-            {/* Direita */}
-            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
-              <p className="text-sm">Fevereiro</p>
-              <p className="text-2xl">06</p>
-              <p className="text-sm">09:45</p>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Agendamento */}
+        <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {confirmedBookings.map((booking) => (
+            <BookingItem key={booking.id} booking={booking} />
+          ))}
+        </div>
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
