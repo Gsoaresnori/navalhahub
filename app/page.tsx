@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"

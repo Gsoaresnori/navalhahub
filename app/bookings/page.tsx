@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getServerSession } from "next-auth"
 import Header from "../_components/header"
 import { db } from "../_lib/prisma"

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from "./prisma"
 import { Adapter } from "next-auth/adapters"
