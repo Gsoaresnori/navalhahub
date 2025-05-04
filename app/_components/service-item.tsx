@@ -55,12 +55,12 @@ const TIME_LIST = [
 interface GetTimeListProps {
   bookings: Booking[]
   selectedDay: Date
+  barbershopId: string
 }
 
 const getTimeList = ({ bookings, selectedDay }: GetTimeListProps) => {
   return TIME_LIST.filter((time) => {
-    const hour = Number(time.split(":")[0])
-    const minutes = Number(time.split(":")[1])
+    const [hour, minutes] = time.split(":").map(Number)
 
     const timeIsOnThePast = isPast(set(new Date(), { hours: hour, minutes }))
     if (timeIsOnThePast && isToday(selectedDay)) {
@@ -69,12 +69,11 @@ const getTimeList = ({ bookings, selectedDay }: GetTimeListProps) => {
 
     const hasBookingOnCurrentTime = bookings.some(
       (booking) =>
-        booking.date.getHours() == hour && booking.date.getMinutes() == minutes,
+        booking.date.getHours() === hour &&
+        booking.date.getMinutes() === minutes,
     )
-    if (hasBookingOnCurrentTime) {
-      return false
-    }
-    return true
+
+    return !hasBookingOnCurrentTime
   })
 }
 
@@ -90,15 +89,17 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   useEffect(() => {
     if (!selectedDay) return
+
     const fetch = async () => {
       const bookings = await getBookings({
         date: selectedDay,
-        serviceId: service.id,
+        barbershopId: service.barbershopId,
       })
       setDayBookings(bookings)
     }
+
     fetch()
-  }, [selectedDay, service.id])
+  }, [selectedDay, service.barbershopId])
 
   const handleBookingClick = () => {
     if (data?.user) {
@@ -149,8 +150,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     return getTimeList({
       bookings: dayBookings,
       selectedDay,
+      barbershopId: service.barbershopId,
     })
-  }, [dayBookings, selectedDay])
+  }, [dayBookings, selectedDay, service.barbershopId])
 
   return (
     <>

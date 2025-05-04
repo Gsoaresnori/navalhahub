@@ -1,10 +1,23 @@
-# Aula Zero
+# NavalhaHub
 
 - [x] Setup do banco
 - [x] Seeding do banco (colocar dados)
 - [x] Introduçãoao Next.js
 - [x] Tailwind e Shadcn
 - [x] Git Hooks
+- [x] corrigir a validação da agenda e filtrar os horarios se for da barbearia que possui agendamento
+- [] Criar pagina de agenda do barbeiro (Listar os agendamentos do dia em ordem e todos os futuros, opção de adicionar agenda, card de agenda do barbeiro é Foto do cliente com nome, telefone abaixo e data dia e horario)
+- [] Criar Metodo do Barbeiro poder lançar o agendamento ou reservar o horario
+- [] Criar pagina de Gerenciar agenda do barbeiro (lista de segunda a Domingo, Seleciona os dias que funciona define os horarios de agendamento como quiser só adicionar o horario)
+- [] Alterar a aba de agendamento para que possa selecionar o barbeiro e puxar a agenda do barbeiro
+- [] Criar pagina de administração (Planos, cadastro de barbearia e inclusão de barbeiro, API PIX de cobrança)
+- [] Criar pagina de administração da barbearia (listar barbeiros e poder remover o acesso deles)
+- [] Criar pagina de dashboard da barbearia (Cortes agendados do dia e do proximo dia, cortes totais do mês e dos mesês anteriores)
+- [] Criar pagina de financeiro da barbearia com as faturas do sistema
+- [] Modificar o cadastro da barbearia (lista de barbeiros vinculado, endereço completo, CNPJ/CPF, Plano, Cobrança)
+- [] Criar os barbeiros no banco de dados
+- [] Criar a agenda dos barbeiros no banco de dados
+- [] Alterar o esquema de banco de dados do prisma
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
